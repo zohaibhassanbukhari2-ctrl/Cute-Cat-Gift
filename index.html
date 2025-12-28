@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitten Surprise Animation</title>
+    <style>
+        /* غبارے اور آتش بازی کا ڈیزائن */
+        .balloon {
+            position: fixed;
+            bottom: -100px;
+            width: 50px;
+            height: 70px;
+            border-radius: 50%;
+            z-index: 999;
+            animation: floatUp 6s ease-in forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+        }
+
+        .firework {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            z-index: 1000;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(35); opacity: 0; }
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fdfdfd;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            position: relative;
+            z-index: 1010;
+        }
+
+        #cat-img {
+            width: 200px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 2px solid #000;
+            background: white;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-content">
+        <img id="cat-img" src="img/Hello.jpg" alt="Cute Cat">
+        <h2 id="message">Hey! I made something for you.<br>Will you see it?</h2>
+        <div class="buttons" id="btn-group">
+            <button onclick="showSurprise()">YES</button>
+            <button id="no-btn" onclick="sayNo()">NO</button>
+        </div>
+    </div>
+
+    <script>
+        const messageEl = document.getElementById('message');
+        const imgEl = document.getElementById('cat-img');
+        const btnGroup = document.getElementById('btn-group');
+
+        // امیجز کے نام یہاں کنفرم کریں
+        const catNormal = "img/Hello.jpg"; 
+        const catAngry = "img/say-it-to-my-face-cat.png"; 
+        const catHappy = "img/CAT.jpg";
+        const catFinal = "img/CAT1.jpg";
+
+        function startCelebration() {
+            console.log("Celebration Started!"); // اگر یہ کونسول میں آئے تو مطلب کوڈ چل رہا ہے
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const b = document.createElement('div');
+                    b.className = 'balloon';
+                    b.style.left = Math.random() * 100 + 'vw';
+                    b.style.backgroundColor = 'hsl(${Math.random() * 360}, 70%, 60%)';
+                    document.body.appendChild(b);
+                    setTimeout(() => b.remove(), 6000);
+                }, i * 300);
+            }
+
+            const fireworkInterval = setInterval(() => {
+                const f = document.createElement('div');
+                f.className = 'firework';
+                f.style.left = Math.random() * 100 + 'vw';
+                f.style.top = Math.random() * 50 + 'vh';
+                f.style.backgroundColor = ['#ff595e', '#ffca3a', '#8ac926', '#1982c4'][Math.floor(Math.random()*4)];
+                document.body.appendChild(f);
+                setTimeout(() => f.remove(), 1500);
+            }, 600);
+
+            window.activeFireworks = fireworkInterval;
+            const messageEl = document.getElementById('message');
+            const imgEl = document.getElementById('cat-img');
+            const btnGroup = document.getElementById('btn-group');
+        }
+
+        function sayNo() {
+            imgEl.src = "img/angryCat1.jpg";
+            messageEl.innerHTML = "HOW DARE YOUUU!";
+            document.getElementById('no-btn').innerText = "BACK";
+            document.getElementById('no-btn').onclick = resetContent;
+        }
+
+        function resetContent() {
+            imgEl.src = "img/111.png";
+            messageEl.innerHTML = "Hey! I made something for you.<br>Will you see it?";
+              document.getElementById('no-btn').innerText = "NO";
+            document.getElementById('no-btn').onclick = sayNo;
+        }
+
+        function showSurprise() {
+            imgEl.src = catHappy;
+            messageEl.innerHTML = "Happy New Year my kuchupuchu!!<br>Click to see your gift! 🎁";
+            btnGroup.innerHTML = '<button onclick="finalSurprise()">NEXT</button>';
+            startCelebration(); 
+        }
+
+        function finalSurprise() {
+            if(window.activeFireworks) clearInterval(window.activeFireworks);
+            messageEl.innerHTML = "I Love You ❤";
+            imgEl.src = "img/CAT1.jpg"; 
+            btnGroup.innerHTML = '';
+        }
+    </script>
+</body>
+</html>
+
+
+
