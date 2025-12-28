@@ -3,6 +3,12 @@
 This is a cute and interactive cat gift project made using HTML, CSS, and JavaScript.
 
 ![imgae alt](https://github.com/zohaibhassanbukhari2-ctrl/Cute-Cat-Gift/blob/19d58b6d695dc770857828890598116ff0f179a4/CAT.jpg)
+![imgae alt]()
+![imgae alt]()
+![imgae alt]()
+![imgae alt]()
+![imgae alt]()
+![imgae alt]()
 ## Features
 - Cute cat animation
 - Simple and clean UI
